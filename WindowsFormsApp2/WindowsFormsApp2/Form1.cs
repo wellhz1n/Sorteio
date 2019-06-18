@@ -176,8 +176,7 @@ namespace WindowsFormsApp2
                     Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
 
                     // Delete the directory.
-                    di.Delete();
-                    Console.WriteLine("The directory was deleted successfully.");
+              
                 }
      
         
