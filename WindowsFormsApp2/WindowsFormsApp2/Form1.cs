@@ -103,6 +103,8 @@ namespace WindowsFormsApp2
 
             if(list.Count < 1)
             {
+                var lis = lista.Count;
+                lista.RemoveRange(0, lis);
                 resultado.Hide();
                 File.Delete(@"C:\t\teste.txt");
                 CriaArquivo(list);
