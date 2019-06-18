@@ -103,7 +103,7 @@ namespace WindowsFormsApp2
 
             if(list.Count < 1)
             {
-
+                resultado.Hide();
                 File.Delete(@"C:\t\teste.txt");
                 CriaArquivo(list);
                 
