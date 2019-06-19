@@ -30,11 +30,13 @@ namespace WindowsFormsApp2
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Cadastra = new System.Windows.Forms.Button();
             this.Nome = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.sortear = new System.Windows.Forms.Button();
             this.resultado = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Cadastra
@@ -52,7 +54,7 @@ namespace WindowsFormsApp2
             // 
             // Nome
             // 
-            this.Nome.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.Nome.BackColor = System.Drawing.Color.PaleTurquoise;
             this.Nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Nome.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Nome.Location = new System.Drawing.Point(226, 25);
@@ -63,9 +65,9 @@ namespace WindowsFormsApp2
             // 
             // listBox1
             // 
-            this.listBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.listBox1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.White;
+            this.listBox1.ForeColor = System.Drawing.Color.Black;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(12, 94);
@@ -97,25 +99,37 @@ namespace WindowsFormsApp2
             this.resultado.TabIndex = 4;
             this.resultado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(167, 28);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Nome:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.resultado);
             this.Controls.Add(this.sortear);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.Nome);
             this.Controls.Add(this.Cadastra);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
-            this.UseWaitCursor = true;
+            this.Text = "Sorteio Tupperware";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -129,6 +143,7 @@ namespace WindowsFormsApp2
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button sortear;
         private System.Windows.Forms.Label resultado;
+        private System.Windows.Forms.Label label1;
     }
 }
 

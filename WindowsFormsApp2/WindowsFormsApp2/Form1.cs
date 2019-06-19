@@ -58,7 +58,7 @@ namespace WindowsFormsApp2
 
         private void Cadastra_Click(object sender, EventArgs e)
         {
-           
+
             lista.Add(Nome.Text);
 
             Nome.Text = "";
@@ -66,28 +66,28 @@ namespace WindowsFormsApp2
             // Loop through and add 50 items to the ListBox.
             foreach (var item in lista)
             {
-                
-                    if (!listBox1.Items.Contains(item))
-                    {
-                        listBox1.Items.Add(item.ToString());
 
-                    }
-                    else
-                    {
-                       
-                    }
+                if (!listBox1.Items.Contains(item))
+                {
+                    listBox1.Items.Add(item.ToString());
+
                 }
+                else
+                {
+
+                }
+            }
 
 
-           
-            
+
+
             // Allow the ListBox to repaint and display the new items.
             listBox1.EndUpdate();
 
-          
-                File.WriteAllLines(@"C:\t\teste.txt", (String[])listBox1.Items.Cast<string>().ToArray());
-          
-           
+
+            File.WriteAllLines(@"C:\t\teste.txt", (String[])listBox1.Items.Cast<string>().ToArray());
+
+
 
 
         }
@@ -99,16 +99,16 @@ namespace WindowsFormsApp2
             //form2.Show(this);
             //Hide();
             var list = listBox1.Items;
-           
 
-            if(list.Count < 1)
+
+            if (list.Count < 1)
             {
                 var lis = lista.Count;
                 lista.RemoveRange(0, lis);
                 resultado.Hide();
                 File.Delete(@"C:\t\teste.txt");
                 CriaArquivo(list);
-                
+
                 MessageBox.Show("Cadastre Nomes para Sortear", "Lista Vazia", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -130,11 +130,11 @@ namespace WindowsFormsApp2
 
         public StreamWriter CriaArquivo(ListBox.ObjectCollection Lista)
         {
-         
+
 
             StreamWriter arquivo = new StreamWriter(@"C:\t\teste.txt");
             Console.WriteLine("Numero De Participantes:\n");
-           
+
             foreach (var item in Lista)
             {
                 arquivo.WriteLine(item);
@@ -150,43 +150,49 @@ namespace WindowsFormsApp2
         {
             resultado.Hide();
             string path = @"C:\t";
-                // Determine whether the directory exists.
-                if (Directory.Exists(path))
-                {
-                    Console.WriteLine("That path exists already.");
-                    if (!File.Exists(@"C:\t\teste.txt"))
-                    {
-                        arquivo = CriaArquivo(listBox1.Items);
-                        Carregalista();
+            // Determine whether the directory exists.
+            if (Directory.Exists(path))
+            {
+                Console.WriteLine("That path exists already.");
+                VerificaArquivo();
+            }
+            else
+            {
 
-                    }
-                    else
-                    {
-                        Carregalista();
+                // Try to create the directory.
+                DirectoryInfo di = Directory.CreateDirectory(path);
+                Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
+                VerificaArquivo();
 
-                    }
-                    if (Nome.Text == null || Nome.Text == "")
-                    {
-                        Cadastra.Enabled = false;
-                    }
-                }
-                else
-                {
+                // Delete the directory.
 
-                    // Try to create the directory.
-                    DirectoryInfo di = Directory.CreateDirectory(path);
-                    Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
-
-                    // Delete the directory.
-              
-                }
-     
-        
+            }
 
 
 
- 
-         
+
+
+
+
+        }
+
+        private void VerificaArquivo()
+        {
+            if (!File.Exists(@"C:\t\teste.txt"))
+            {
+                arquivo = CriaArquivo(listBox1.Items);
+                Carregalista();
+
+            }
+            else
+            {
+                Carregalista();
+
+            }
+            if (Nome.Text == null || Nome.Text == "")
+            {
+                Cadastra.Enabled = false;
+            }
         }
 
         private void Nome_TextChanged(object sender, EventArgs e)
@@ -220,5 +226,5 @@ namespace WindowsFormsApp2
             File.WriteAllLines(@"C:\t\teste.txt", myArr);
         }
     }
-   
+
 }
