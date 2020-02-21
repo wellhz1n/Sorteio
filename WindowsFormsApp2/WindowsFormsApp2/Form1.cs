@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnumsNET;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,7 @@ namespace WindowsFormsApp2
 
         private void Carregalista()
         {
-            string[] linha = File.ReadAllLines(@"C:\t\teste.txt");
+            string[] linha = File.ReadAllLines(@"C:\Sorteio\teste.txt");
             for (int i = 0; i < linha.Length; i++)
             {
                 lista.Add(linha[i]);
@@ -85,7 +86,7 @@ namespace WindowsFormsApp2
             listBox1.EndUpdate();
 
 
-            File.WriteAllLines(@"C:\t\teste.txt", (String[])listBox1.Items.Cast<string>().ToArray());
+            File.WriteAllLines(@"C:\Sorteio\teste.txt", (String[])listBox1.Items.Cast<string>().ToArray());
 
 
 
@@ -106,7 +107,7 @@ namespace WindowsFormsApp2
                 var lis = lista.Count;
                 lista.RemoveRange(0, lis);
                 resultado.Hide();
-                File.Delete(@"C:\t\teste.txt");
+                File.Delete(@"C:\Sorteio\teste.txt");
                 CriaArquivo(list);
 
                 MessageBox.Show("Cadastre Nomes para Sortear", "Lista Vazia", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -124,7 +125,7 @@ namespace WindowsFormsApp2
                 list.Remove(sort);
 
                 listBox1.EndUpdate();
-                File.WriteAllLines(@"C:\t\teste.txt", (String[])listBox1.Items.Cast<string>().ToArray());
+                File.WriteAllLines($@"C:\Sorteio\{arquivoInput.Text}.txt", (String[])listBox1.Items.Cast<string>().ToArray());
             }
         }
 
@@ -132,7 +133,7 @@ namespace WindowsFormsApp2
         {
 
 
-            StreamWriter arquivo = new StreamWriter(@"C:\t\teste.txt");
+            StreamWriter arquivo = new StreamWriter($@"C:\Sorteio\{arquivoInput.Text}.txt");
             Console.WriteLine("Numero De Participantes:\n");
 
             foreach (var item in Lista)
@@ -145,11 +146,20 @@ namespace WindowsFormsApp2
 
             return arquivo;
         }
+        public StreamWriter CriaArquivoConfig()
+        {
+
+
+            StreamWriter arquivo = new StreamWriter(@"C:\Sorteio\config.con");
+            arquivo.Close();
+            return arquivo;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+           
             resultado.Hide();
-            string path = @"C:\t";
+            string path = @"C:\Sorteio";
             // Determine whether the directory exists.
             if (Directory.Exists(path))
             {
@@ -178,21 +188,33 @@ namespace WindowsFormsApp2
 
         private void VerificaArquivo()
         {
-            if (!File.Exists(@"C:\t\teste.txt"))
+
+            if (!File.Exists(@"C:\Sorteio\config.con"))
             {
-                arquivo = CriaArquivo(listBox1.Items);
-                Carregalista();
+                arquivo = CriaArquivoConfig();
 
             }
-            else
+            if (arquivoInput.Text != null)
             {
-                Carregalista();
 
+
+                if (!File.Exists($@"C:\Sorteio\{arquivoInput.Text}.txt"))
+                {
+                    arquivo = CriaArquivo(listBox1.Items);
+                    Carregalista();
+
+                }
+                else
+                {
+                    Carregalista();
+
+                }
+                if (Nome.Text == null || Nome.Text == "")
+                {
+                    Cadastra.Enabled = false;
+                }
             }
-            if (Nome.Text == null || Nome.Text == "")
-            {
-                Cadastra.Enabled = false;
-            }
+
         }
 
         private void Nome_TextChanged(object sender, EventArgs e)
@@ -208,7 +230,7 @@ namespace WindowsFormsApp2
         }
 
 
-        public static string Sorteio(ListBox.ObjectCollection Lista)
+        public  string Sorteio(ListBox.ObjectCollection Lista)
         {
 
 
@@ -218,13 +240,35 @@ namespace WindowsFormsApp2
 
 
         }
-        private static void ApagaLista(ListBox.ObjectCollection Lista)
+        private  void ApagaLista(ListBox.ObjectCollection Lista)
         {
             String[] myArr = (String[])Lista.Cast<string>().ToArray();
 
 
-            File.WriteAllLines(@"C:\t\teste.txt", myArr);
+            File.WriteAllLines($@"C:\Sorteio\{arquivoInput.Text}.txt", myArr);
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+    enum Sorteios
+    {
+        [Description("Sorteio 1")]
+        Sorteio1=0,
+        [Description("Sorteio 2")]
+        Sorteio2 = 2
     }
 
 }
