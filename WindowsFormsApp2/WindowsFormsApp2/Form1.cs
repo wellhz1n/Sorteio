@@ -26,7 +26,7 @@ namespace WindowsFormsApp2
 
         private void Carregalista()
         {
-            string[] linha = File.ReadAllLines(@"C:\Sorteio\teste.txt");
+            string[] linha = File.ReadAllLines($@"{Diretorio.Pasta}\{Diretorio.ArquivoSelecionado}");
             for (int i = 0; i < linha.Length; i++)
             {
                 lista.Add(linha[i]);
@@ -86,7 +86,7 @@ namespace WindowsFormsApp2
             listBox1.EndUpdate();
 
 
-            File.WriteAllLines(@"C:\Sorteio\teste.txt", (String[])listBox1.Items.Cast<string>().ToArray());
+            File.WriteAllLines($@"{Diretorio.Pasta}\{Diretorio.ArquivoSelecionado}", (String[])listBox1.Items.Cast<string>().ToArray());
 
 
 
@@ -107,7 +107,7 @@ namespace WindowsFormsApp2
                 var lis = lista.Count;
                 lista.RemoveRange(0, lis);
                 resultado.Hide();
-                File.Delete(@"C:\Sorteio\teste.txt");
+                File.Delete($@"{Diretorio.Pasta}\{Diretorio.ArquivoSelecionado}");
                 CriaArquivo(list);
 
                 MessageBox.Show("Cadastre Nomes para Sortear", "Lista Vazia", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -125,7 +125,7 @@ namespace WindowsFormsApp2
                 list.Remove(sort);
 
                 listBox1.EndUpdate();
-                File.WriteAllLines($@"C:\Sorteio\{arquivoInput.Text}.txt", (String[])listBox1.Items.Cast<string>().ToArray());
+                File.WriteAllLines($@"{Diretorio.Pasta}\{Diretorio.ArquivoSelecionado}", (String[])listBox1.Items.Cast<string>().ToArray());
             }
         }
 
@@ -133,7 +133,7 @@ namespace WindowsFormsApp2
         {
 
 
-            StreamWriter arquivo = new StreamWriter($@"C:\Sorteio\{arquivoInput.Text}.txt");
+            StreamWriter arquivo = new StreamWriter($@"{Diretorio.Pasta}\{Diretorio.ArquivoSelecionado}");
             Console.WriteLine("Numero De Participantes:\n");
 
             foreach (var item in Lista)
@@ -146,20 +146,23 @@ namespace WindowsFormsApp2
 
             return arquivo;
         }
-        public StreamWriter CriaArquivoConfig()
-        {
+        //public StreamWriter CriaArquivoConfig()
+        //{
 
 
-            StreamWriter arquivo = new StreamWriter(@"C:\Sorteio\config.con");
-            arquivo.Close();
-            return arquivo;
-        }
+        //    StreamWriter arquivo = new StreamWriter(@"C:\Sorteio\config.con");
+        //    arquivo.Close();
+        //    return arquivo;
+        //}
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+
             resultado.Hide();
-            string path = @"C:\Sorteio";
+            string path = Diretorio.Pasta;
+            SorteioList.Items.Add(Sorteios.Sorteio1);
+            SorteioList.Items.Add(Sorteios.Sorteio2);
+            SorteioList.SelectedItem = SorteioList.Items[0];
             // Determine whether the directory exists.
             if (Directory.Exists(path))
             {
@@ -188,32 +191,35 @@ namespace WindowsFormsApp2
 
         private void VerificaArquivo()
         {
+            resultado.Hide();
 
-            if (!File.Exists(@"C:\Sorteio\config.con"))
+            switch (SorteioList.SelectedIndex)
             {
-                arquivo = CriaArquivoConfig();
+                case 0:
+                    Diretorio.ArquivoSelecionado = Diretorio.Arquivos.First();
+                    break;
+                case 1:
+                    Diretorio.ArquivoSelecionado = Diretorio.Arquivos.Last();
+                    break;
+            }
+
+
+            if (!File.Exists($@"{Diretorio.Pasta}\{Diretorio.ArquivoSelecionado}"))
+            {
+                arquivo = CriaArquivo(listBox1.Items);
+                Carregalista();
 
             }
-            if (arquivoInput.Text != null)
+            else
             {
+                Carregalista();
 
-
-                if (!File.Exists($@"C:\Sorteio\{arquivoInput.Text}.txt"))
-                {
-                    arquivo = CriaArquivo(listBox1.Items);
-                    Carregalista();
-
-                }
-                else
-                {
-                    Carregalista();
-
-                }
-                if (Nome.Text == null || Nome.Text == "")
-                {
-                    Cadastra.Enabled = false;
-                }
             }
+            if (Nome.Text == null || Nome.Text == "")
+            {
+                Cadastra.Enabled = false;
+            }
+
 
         }
 
@@ -230,7 +236,7 @@ namespace WindowsFormsApp2
         }
 
 
-        public  string Sorteio(ListBox.ObjectCollection Lista)
+        public string Sorteio(ListBox.ObjectCollection Lista)
         {
 
 
@@ -240,12 +246,12 @@ namespace WindowsFormsApp2
 
 
         }
-        private  void ApagaLista(ListBox.ObjectCollection Lista)
+        private void ApagaLista(ListBox.ObjectCollection Lista)
         {
             String[] myArr = (String[])Lista.Cast<string>().ToArray();
 
 
-            File.WriteAllLines($@"C:\Sorteio\{arquivoInput.Text}.txt", myArr);
+            File.WriteAllLines($@"{Diretorio.Pasta}\{Diretorio.ArquivoSelecionado}", myArr);
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -255,7 +261,11 @@ namespace WindowsFormsApp2
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            listBox1.BeginUpdate();
+            listBox1.Items.Clear();
+            listBox1.EndUpdate();
+            lista.Clear();
+            VerificaArquivo();
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -266,9 +276,14 @@ namespace WindowsFormsApp2
     enum Sorteios
     {
         [Description("Sorteio 1")]
-        Sorteio1=0,
+        Sorteio1 = 0,
         [Description("Sorteio 2")]
-        Sorteio2 = 2
+        Sorteio2 = 1
     }
-
+    public class Diretorio
+    {
+        public static List<string> Arquivos = new List<string> { "Sorteio1.txt", "Sorteio2.txt" };
+        public static string ArquivoSelecionado = Arquivos.First();
+        public static string Pasta = @"C:\Sorteio";
+    }
 }

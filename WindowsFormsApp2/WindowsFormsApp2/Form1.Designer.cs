@@ -37,8 +37,6 @@ namespace WindowsFormsApp2
             this.sortear = new System.Windows.Forms.Button();
             this.resultado = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.arquivoInput = new System.Windows.Forms.TextBox();
             this.SorteioList = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -114,28 +112,6 @@ namespace WindowsFormsApp2
             this.label1.TabIndex = 6;
             this.label1.Text = "Nome:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(155, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 16);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Arquivo:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // arquivoInput
-            // 
-            this.arquivoInput.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.arquivoInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.arquivoInput.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.arquivoInput.Location = new System.Drawing.Point(225, 9);
-            this.arquivoInput.Name = "arquivoInput";
-            this.arquivoInput.Size = new System.Drawing.Size(367, 22);
-            this.arquivoInput.TabIndex = 8;
-            // 
             // SorteioList
             // 
             this.SorteioList.FormattingEnabled = true;
@@ -166,8 +142,6 @@ namespace WindowsFormsApp2
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.SorteioList);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.arquivoInput);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.resultado);
             this.Controls.Add(this.sortear);
@@ -195,8 +169,6 @@ namespace WindowsFormsApp2
         private System.Windows.Forms.Button sortear;
         private System.Windows.Forms.Label resultado;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox arquivoInput;
         private System.Windows.Forms.ComboBox SorteioList;
         private System.Windows.Forms.Label label3;
     }

@@ -30,3 +30,7 @@ D:\Projetos\wellhz1n\Sorteio\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\Windows
 D:\Projetos\wellhz1n\Sorteio\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.GenerateResource.cache
 D:\Projetos\wellhz1n\Sorteio\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.exe
 D:\Projetos\wellhz1n\Sorteio\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.pdb
+D:\Projetos\wellhz1n\Sorteio\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\Enums.NET.dll
+D:\Projetos\wellhz1n\Sorteio\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\Enums.NET.pdb
+D:\Projetos\wellhz1n\Sorteio\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\Enums.NET.xml
+D:\Projetos\wellhz1n\Sorteio\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.CopyComplete
